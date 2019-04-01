@@ -34,4 +34,4 @@ jobs:
             go vet ./...
             GOFLAGS=-mod= go get github.com/mattn/goveralls
             go test -v -cover -race -timeout=60s -coverprofile=./coverage.out $(go list ./...)
-            GOFLAGS=-mod= goveralls -coverprofile=./coverage.out -service=circle-ci -repotoken=$COVERALLS_TOKEN
+            GOFLAGS=-mod= goveralls -coverprofile=./coverage.out -service=circle-ci -repotoken=iZEBTcZGlOTz6r2o2sk64OEkYEbLrlVTZ
