@@ -3,7 +3,7 @@
 # Check https://circleci.com/docs/2.0/language-go/ for more details
 version: 2
 jobs:
-  build:
+  build-cmd:
     docker:
       # specify the version
       - image: circleci/golang:1.9
@@ -28,7 +28,7 @@ jobs:
       # - run: go get -v -t -d 
       # - run: go test -coverprofile ./coverage.out
       - run:
-          name: run tests
+          name: run go tests
           command: |
             go fmt ./...
             go vet ./...
@@ -36,13 +36,13 @@ jobs:
             go test -v -cover -race -timeout=60s -coverprofile=./coverage.out $(go list ./...)
             GOFLAGS=-mod= goveralls -coverprofile=./coverage.out -service=circle-ci -repotoken=iZEBTcZGlOTz6r2o2sk64OEkYEbLrlVTZ
     
-  test:
+  build-web:
     docker:
       - image: circleci/node:8.12-browsers
-    
     steps:
       - checkout
       - run:
+          name: run ng test
           command: |
             cd web/ui
             npm i
