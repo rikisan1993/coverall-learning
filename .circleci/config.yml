@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build-cmd:
+  build-go:
     docker:
       - image: circleci/golang:1.9
     working_directory: /go/src/github.com/rikisan1993/coverall-learning
@@ -11,7 +11,7 @@ jobs:
           command: |
             goveralls -coverprofile=./coverage.out -service=circle-ci -repotoken=iZEBTcZGlOTz6r2o2sk64OEkYEbLrlVTZ
     
-  build:
+  build-ng:
     docker:
       - image: circleci/node:8.12-browsers
     steps:
@@ -22,16 +22,16 @@ jobs:
             cd web/ui
             npm i
             npm run test
-            
+
 workflows:
   version: 2
   build-test-release:
     jobs:
-      - build-cmd:
+      - build-go:
           filters:
             branches:
               only: master
-      - build-web:
+      - build-ng:
           filters:
             branches:
               only: master
