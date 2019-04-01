@@ -20,13 +20,6 @@ module.exports = function (config) {
     client: {
       clearContext: false // leave Jasmine Spec Runner output visible in browser
     },
-    files: [
-      { pattern: './test.ts', watched: false }
-    ],
-    preprocessors: {
-      'dist/app/**/!(*spec).js': ['coverage'],
-      './test.ts': ['@angular/cli']
-    },
     mime: {
       'text/x-typescript': ['ts','tsx']
     },
@@ -34,7 +27,8 @@ module.exports = function (config) {
       dir : 'coverage/',
         reporters: [
           { type: 'html' },
-          { type: 'lcov' }
+          { type: 'lcov' },
+          { type: 'json' }
         ]
     },
     angularCli: {
