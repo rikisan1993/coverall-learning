@@ -3,14 +3,19 @@ jobs:
   build-go:
     docker:
       - image: circleci/golang:1.9
+        environment:
+            GOFLAGS: "-mod=vendor"
     working_directory: /go/src/github.com/rikisan1993/coverall-learning
     steps:
       - checkout
       - run:
           name: run go tests
           command: |
-            go get github.com/mattn/goveralls
-            goveralls -coverprofile=./coverage.out -service=circle-ci -repotoken=iZEBTcZGlOTz6r2o2sk64OEkYEbLrlVTZ
+            go fmt ./...
+            go vet ./...
+            GOFLAGS=-mod= go get github.com/mattn/goveralls
+            go test -v -cover -race -timeout=60s -coverprofile=./coverage.out $(go list ./...)
+            GOFLAGS=-mod= goveralls -coverprofile=./coverage.out -service=circle-ci -repotoken=iZEBTcZGlOTz6r2o2sk64OEkYEbLrlVTZ
     
   build-ng:
     docker:
