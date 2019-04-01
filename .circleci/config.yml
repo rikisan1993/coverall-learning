@@ -36,14 +36,14 @@ jobs:
             go test -v -cover -race -timeout=60s -coverprofile=./coverage.out $(go list ./...)
             GOFLAGS=-mod= goveralls -coverprofile=./coverage.out -service=circle-ci -repotoken=iZEBTcZGlOTz6r2o2sk64OEkYEbLrlVTZ
     
-    test:
-      docker:
-        - image: circleci/node:8.12-browsers
-      
-      steps:
-        - checkout
-        - run:
-            command: |
-              cd web/ui
-              npm i
-              npm run test
+  test:
+    docker:
+      - image: circleci/node:8.12-browsers
+    
+    steps:
+      - checkout
+      - run:
+          command: |
+            cd web/ui
+            npm i
+            npm run test
