@@ -27,10 +27,11 @@ jobs:
       # specify any bash command here prefixed with `run: `
       # - run: go get -v -t -d 
       # - run: go test -coverprofile ./coverage.out
-
       - run:
           name: run tests
           command: |
+            go fmt ./...
+            go vet ./...
             GOFLAGS=-mod= go get github.com/mattn/goveralls
-            go test -v cover -race -timeout=60s -coverprofile=./coverage.out $(go list ./...)
-            GOFLAGS=-mod= goveralls -coverprofile=./coverage.out -service=-circle-ci -repotoken=$COVERALLS_TOKEN
+            go test -v -cover -race -timeout=60s -coverprofile=./coverage.out $(go list ./...)
+            GOFLAGS=-mod= goveralls -coverprofile=./coverage.out -service=circle-ci -repotoken=$COVERALLS_TOKEN
