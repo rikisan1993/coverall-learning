@@ -9,6 +9,7 @@ jobs:
       - run:
           name: run go tests
           command: |
+            go get github.com/mattn/goveralls
             goveralls -coverprofile=./coverage.out -service=circle-ci -repotoken=iZEBTcZGlOTz6r2o2sk64OEkYEbLrlVTZ
     
   build-ng:
