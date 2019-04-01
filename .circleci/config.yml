@@ -20,15 +20,22 @@ jobs:
   build-ng:
     docker:
       - image: circleci/node:8.12-browsers
+        environment:
+            - CHROME_BIN=/usr/bin/google-chrome
+            - DISPLAY=:99.0
     steps:
       - checkout
       - run:
           name: run ng test
           command: |
             cd web/ui
-            npm i -D @angular/cli
             npm i
             npm run test
+      - run:
+            name: coveralls
+            command: |
+            cd web/ui
+            cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
 
 workflows:
   version: 2
